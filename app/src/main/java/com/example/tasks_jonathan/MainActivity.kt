@@ -1,6 +1,7 @@
 package com.example.tasks_jonathan
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,9 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
     private lateinit var adapter: TodoAdapter
     private lateinit var snackbarHelper: SnackbarHelper
     private var tasksList:MutableList<Task> = mutableListOf()
+
+    private lateinit var btnAddTask: Button
+    private lateinit var btnUpdateTask: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +43,19 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
             )
         )
 
+        // initializing buttons references to global variables
+        btnAddTask = findViewById(R.id.btnAddTask)
+        btnUpdateTask = findViewById(R.id.btnUpdateTask)
+
+        // initializing default form values and properties
+        resetForm()
+
         // click handlers
         this.binding.btnAddTask.setOnClickListener {
-            addNewTask(this.binding.etNewTask.text.toString())
+            addNewTask(
+                this.binding.etNewTask.text.toString(),
+                this.binding.swIsHighPriority.isChecked
+            )
         }
 
         this.binding.btnUpdateTask.setOnClickListener {
@@ -49,12 +63,24 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
         }
     }
 
-    private fun addNewTask(newTask: String) {
-        // add new task: newTask
+    private fun addNewTask(newTask: String, isHighPriority: Boolean) {
+        val newTask: Task = Task(newTask, isHighPriority)
+        this.tasksList.add(newTask)
+        this.adapter.notifyDataSetChanged()
+        this.snackbarHelper.showSnackbar("Task added.")
+        resetForm()
     }
 
     private fun updateTask() {
         // to update task, se values in form
+    }
+
+    private fun resetForm() {
+        binding.etNewTask.setText("")
+        binding.swIsHighPriority.isChecked = false
+        // buttons btnAddTask and btnUpdateTask are enabled and disabled by default respectively
+        btnAddTask.isEnabled = true
+        btnUpdateTask.isEnabled = false
     }
 
     override fun onDeleteClicked(position: Int) {
