@@ -84,6 +84,8 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
     }
 
     override fun onDeleteClicked(position: Int) {
+        this.tasksList.removeAt(position)
+        this.adapter.notifyDataSetChanged()
         this.snackbarHelper.showSnackbar("Task deleted.")
     }
 
