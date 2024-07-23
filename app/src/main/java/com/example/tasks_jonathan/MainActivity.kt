@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
     private lateinit var btnAddTask: Button
     private lateinit var btnUpdateTask: Button
 
+    var updatePosition: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -72,7 +74,15 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
     }
 
     private fun updateTask() {
+        val updatedTask = Task(
+            binding.etNewTask.text.toString(),
+            binding.swIsHighPriority.isChecked
+        )
+        this.tasksList[this.updatePosition] = updatedTask
+        this.adapter.notifyItemChanged(this.updatePosition) // to notify item changed
         // to update task, se values in form
+        this.snackbarHelper.showSnackbar("Task updated.")
+        resetForm()
     }
 
     private fun resetForm() {
@@ -81,6 +91,8 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
         // buttons btnAddTask and btnUpdateTask are enabled and disabled by default respectively
         btnAddTask.isEnabled = true
         btnUpdateTask.isEnabled = false
+        // reset updatePosition to initial value
+        this.updatePosition = -1
     }
 
     override fun onDeleteClicked(position: Int) {
@@ -90,6 +102,16 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
     }
 
     override fun onEditClicked(position: Int) {
-        this.snackbarHelper.showSnackbar("Task updated.")
+        // disable btnAddTask and enable btnUpdateTask
+        btnAddTask.isEnabled = false
+        btnUpdateTask.isEnabled = true
+
+        // save position to update and get task from list
+        this.updatePosition = position
+        val taskToUpdate: Task = this.tasksList.get(this.updatePosition)
+
+        // fill values in form
+        binding.etNewTask.setText(taskToUpdate.name)
+        binding.swIsHighPriority.isChecked = taskToUpdate.isHighPriority
     }
 }
