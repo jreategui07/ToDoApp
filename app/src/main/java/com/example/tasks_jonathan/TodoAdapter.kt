@@ -35,6 +35,8 @@ class TodoAdapter(
             Glide.with(context)
                 .load(R.drawable.ic_notification_important)
                 .into(holder.binding.ivNotificationImportant)
+        } else {
+            holder.binding.ivNotificationImportant.setImageDrawable(null)
         }
 
         // click handlers
