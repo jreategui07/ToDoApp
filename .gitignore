@@ -1,15 +1,91 @@
-*.iml
+# Java class files
+*.class
+
+# Built application files
+*.apk
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+
+# Gradle files
 .gradle
 /local.properties
+.gradle/
+build/
+tmp/
+*.log
+
+# IntelliJ IDEA files
+*.iml
+.idea/
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+
+# Android Studio files
+/.idea/
+/captures
+/.externalNativeBuild
+.cxx
 .DS_Store
 /build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
+
+# MacOS files
+*.DS_Store
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+
+# Freeline generated files
+freeline.py
+freeline/
+freeline_project_description.json
+
+# Signed APK files
+*.jks
+*.keystore
+
+# Google Services JSON file
+google-services.json
+
+# Generated plugin folders
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/httpRequests
+.idea/scopes
+.idea/debugger.xml
+.idea/stash
+.idea/templates.xml
+.idea/vcs-Group
+.idea/tsconfigs
+.idea/watcherTasks.xml
+.idea/codeStyleSettings.xml
+.idea/.name
+.idea/.iml
+
+# Local configuration file
+/local.properties
+
+# External native build
+.externalNativeBuild/
+
+# Translations
+build/translations/
